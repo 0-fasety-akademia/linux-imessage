@@ -1,7 +1,10 @@
-# Linux iMessage 0.2.0
+# Linux iMessage 0.2.3
 
 iMessage i SMS z Twojego iPhone'a na Ubuntu, przez Bluetooth.
 Bez Maca, bez chmury, bez sieci.
+
+Created by: JGu
+Supported by Claude
 
 *English version below.*
 
@@ -30,7 +33,7 @@ tak jak zestaw głośnomówiący w samochodzie albo Phone Link na Windowsie:
 
 1. **Zainstaluj paczkę** (zależności dociągną się same):
    ```sh
-   sudo apt install ./linux-imessage_0.2.0_all.deb
+   sudo apt install ./linux-imessage_0.2.3_all.deb
    ```
 2. **Sparuj iPhone'a z laptopem:** Ustawienia Ubuntu → Bluetooth → wybierz iPhone'a →
    potwierdź ten sam kod na obu urządzeniach.
@@ -59,7 +62,8 @@ Interfejs możesz obejrzeć bez telefonu: `linux-imessage --demo`.
   a ikona w zasobniku dopasowuje się do panelu.
 - **Polski albo angielski** zależnie od języka systemu. Wymuszenie:
   `LINUX_IMESSAGE_LANG=en linux-imessage`.
-- Wersja i data wydania w lewym dolnym rogu.
+- Wersja i data wydania w lewym dolnym rogu, nad nią „Created by: JGu” i „Supported by Claude”.
+  Te same informacje są w oknie „O programie”.
 
 ### Oznaczenie „iMessage” przy kontaktach
 
@@ -119,6 +123,7 @@ Pliki aplikacji w Twoim katalogu domowym:
 
 ## Historia zmian
 
+- **0.2.3:** oparta na 0.2.0, bez usuwania z 0.2.1/0.2.2, które iOS ignoruje. Dodano „Created by: JGu / Supported by Claude” w oknie i w „O programie”. Przy starcie aplikacja czyści resztki po usuwaniu z 0.2.1/0.2.2.
 - **0.2.0:** angielski/polski wg systemu; ikona aplikacji jasna/ciemna; oznaczenie „iMessage”
   w podpowiedziach; wersja i data w oknie.
 - **0.1.3:** podpowiedzi kontaktów przy nowej wiadomości.
@@ -142,7 +147,7 @@ Python 3 + GTK 4 / libadwaita (PyGObject) + dbus-python, bez innych zależności
 access is blocked inside the app.
 
 **First run:**
-1. `sudo apt install ./linux-imessage_0.2.0_all.deb`
+1. `sudo apt install ./linux-imessage_0.2.3_all.deb`
 2. Pair the iPhone in Ubuntu Settings → Bluetooth.
 3. On the iPhone, go to Settings → Bluetooth → **(i)** next to the laptop and turn on
    **Show Notifications** and **Sync Contacts**.
