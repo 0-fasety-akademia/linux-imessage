@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Name=Linux iMessage
+GenericName=Messages
+GenericName[pl]=Wiadomości
+Comment=iMessage and SMS from your iPhone over Bluetooth
+Comment[pl]=iMessage i SMS z iPhone'a przez Bluetooth
+Exec=linux-imessage
+Icon=pl.jaro.LinuxIMessage
+Terminal=false
+Categories=Network;InstantMessaging;Chat;
+Keywords=iMessage;SMS;iPhone;Apple;Bluetooth;messages;
+Keywords[pl]=iMessage;SMS;iPhone;Apple;Bluetooth;wiadomości;
+StartupNotify=true
+X-GNOME-UsesNotifications=true

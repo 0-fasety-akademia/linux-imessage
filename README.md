@@ -1,4 +1,4 @@
-# Linux iMessage 0.2.3
+# Linux iMessage 0.2.4
 
 iMessage i SMS z Twojego iPhone'a na Ubuntu, przez Bluetooth.
 Bez Maca, bez chmury, bez sieci.
@@ -31,9 +31,10 @@ tak jak zestaw głośnomówiący w samochodzie albo Phone Link na Windowsie:
 
 ## Pierwsze uruchomienie, krok po kroku (Ubuntu 24.04+)
 
-1. **Zainstaluj paczkę** (zależności dociągną się same):
+1. **Zainstaluj paczkę** (zależności dociągną się same). Najnowszy plik
+   `linux-imessage_<wersja>_all.deb` pobierz ze [strony Releases](https://github.com/jgu-linux-apps/linux-imessage/releases/latest):
    ```sh
-   sudo apt install ./linux-imessage_0.2.3_all.deb
+   sudo apt install ./linux-imessage_<wersja>_all.deb
    ```
 2. **Sparuj iPhone'a z laptopem:** Ustawienia Ubuntu → Bluetooth → wybierz iPhone'a →
    potwierdź ten sam kod na obu urządzeniach.
@@ -123,6 +124,7 @@ Pliki aplikacji w Twoim katalogu domowym:
 
 ## Historia zmian
 
+- **0.2.4:** bez zmian w aplikacji. Kod w repozytorium w katalogu `src/`, paczka `.deb` na stronie GitHub Releases (budowana automatycznie dla każdego tagu wersji); README: instalacja z Releases.
 - **0.2.3:** oparta na 0.2.0, bez usuwania z 0.2.1/0.2.2, które iOS ignoruje. Dodano „Created by: JGu / Supported by Claude” w oknie i w „O programie”. Przy starcie aplikacja czyści resztki po usuwaniu z 0.2.1/0.2.2.
 - **0.2.0:** angielski/polski wg systemu; ikona aplikacji jasna/ciemna; oznaczenie „iMessage”
   w podpowiedziach; wersja i data w oknie.
@@ -132,6 +134,10 @@ Pliki aplikacji w Twoim katalogu domowym:
 - **0.1.0:** pierwsza wersja.
 
 ## Budowanie z kodu
+
+Kod źródłowy jest w katalogu `src/` repozytorium; paczek `.deb` nie ma w gicie, są w [Releases](https://github.com/jgu-linux-apps/linux-imessage/releases).
+Wypchnięcie tagu `vX.Y.Z` zgodnego z `VERSION` w `src/linux_imessage/app.py` uruchamia GitHub Actions
+(`.github/workflows/release.yml`), które budują paczkę i publikują wydanie. W katalogu `src/`:
 
 ```sh
 ./build-deb.sh   # → dist/linux-imessage_<wersja>_all.deb
@@ -147,7 +153,7 @@ Python 3 + GTK 4 / libadwaita (PyGObject) + dbus-python, bez innych zależności
 access is blocked inside the app.
 
 **First run:**
-1. `sudo apt install ./linux-imessage_0.2.3_all.deb`
+1. Download the newest `.deb` from the [Releases page](https://github.com/jgu-linux-apps/linux-imessage/releases/latest) and run `sudo apt install ./linux-imessage_<version>_all.deb`
 2. Pair the iPhone in Ubuntu Settings → Bluetooth.
 3. On the iPhone, go to Settings → Bluetooth → **(i)** next to the laptop and turn on
    **Show Notifications** and **Sync Contacts**.
