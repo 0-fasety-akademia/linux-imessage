@@ -17,7 +17,7 @@ from .store import Store, load_settings, save_settings  # noqa: E402
 
 APP_ID = "pl.jaro.LinuxIMessage"
 APP_NAME = "Linux iMessage"
-VERSION = "0.2.4"
+VERSION = "0.2.5"
 BUILD_DATE = "2026-11-12"
 CREATED_BY = "Created by: JGu"
 SUPPORTED_BY = "Supported by Claude"
@@ -555,7 +555,8 @@ class App(Adw.Application):
     def show_about(self):
         about = Adw.AboutDialog(application_name=APP_NAME, application_icon=self.app_icon(), version=VERSION,
                                 developer_name=CREATED_BY + "\n" + SUPPORTED_BY,
-                                developers=["JGu"], license_type=Gtk.License.MIT_X11,
+                                developers=["JGu"], license_type=Gtk.License.CUSTOM,
+                                license="Freeware License (No Modifications).\nFree to use and to share unmodified; modification is not permitted.\nSee /usr/share/doc/linux-imessage/copyright.",
                                 comments=T("iMessage i SMS z Twojego iPhone'a przez Bluetooth. Bez Maca, bez chmury, bez sieci."))
         about.present(self.win)
 
