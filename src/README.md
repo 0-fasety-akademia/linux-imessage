@@ -1,4 +1,4 @@
-# Linux iMessage 0.2.5
+# Linux iMessage 0.2.6
 
 iMessage i SMS z Twojego iPhone'a na Ubuntu, przez Bluetooth.
 Bez Maca, bez chmury, bez sieci.
@@ -124,6 +124,7 @@ Pliki aplikacji w Twoim katalogu domowym:
 
 ## Historia zmian
 
+- **0.2.6:** poprawka dla BlueZ 5.87 (Ubuntu 26.04+): lista wiadomości znów się odświeża – nowszy obexd zwraca wiadomości jako słownik, a nie listę par, przez co odświeżanie kończyło się błędem „too many values to unpack” co 45 s; gdy iPhone odmawia dostępu (OBEX 0x43 / 0x41), aplikacja wyjaśnia, co zrobić na telefonie, i sama łączy się ponownie co 30 s; błąd odświeżania pokazuje się raz, a nie co 45 s.
 - **0.2.5:** licencja: aplikacja jest teraz na licencji Freeware License (No Modifications), zob. `LICENSE` — darmowe użytkowanie i udostępnianie bez zmian, bez prawa do modyfikacji; poza tym bez zmian w aplikacji.
 - **0.2.4:** bez zmian w aplikacji. Kod w repozytorium w katalogu `src/`, paczka `.deb` na stronie GitHub Releases (budowana automatycznie dla każdego tagu wersji); README: instalacja z Releases.
 - **0.2.3:** oparta na 0.2.0, bez usuwania z 0.2.1/0.2.2, które iOS ignoruje. Dodano „Created by: JGu / Supported by Claude” w oknie i w „O programie”. Przy starcie aplikacja czyści resztki po usuwaniu z 0.2.1/0.2.2.

@@ -17,7 +17,7 @@ from .store import Store, load_settings, save_settings  # noqa: E402
 
 APP_ID = "pl.jaro.LinuxIMessage"
 APP_NAME = "Linux iMessage"
-VERSION = "0.2.5"
+VERSION = "0.2.6"
 BUILD_DATE = "2026-11-12"
 CREATED_BY = "Created by: JGu"
 SUPPORTED_BY = "Supported by Claude"
@@ -578,7 +578,14 @@ class App(Adw.Application):
             "no-device": (T("Brak iPhone'a"), T("Nie znaleziono sparowanego iPhone'a. Sparuj go w Ustawieniach → Bluetooth.")),
             "map-failed": (T("Brak dostępu do wiadomości"),
                            T("Na iPhonie: Bluetooth → (i) przy komputerze → włącz „Pokazuj powiadomienia”.")),
+            "map-denied": (T("iPhone odmówił dostępu"),
+                           T("iPhone jest połączony, ale nie zezwala na wiadomości. Odblokuj go i w Ustawieniach → "
+                             "Bluetooth → (i) przy komputerze włącz „Pokazuj powiadomienia” (jeśli już jest włączone – "
+                             "wyłącz i włącz ponownie). Aplikacja połączy się sama w ciągu 30 s.")),
         }
+        if state == "map-failed" and isinstance(info, str) and ("0x43" in info or "0xc3" in info.lower()
+                                                                   or "0x41" in info or "0xc1" in info.lower()):
+            state, info = "map-denied", None      # OBEX Forbidden / Unauthorized – decyzja po stronie iPhone'a
         subtitle, banner = messages.get(state, (state, None))
         if state == "map-failed" and isinstance(info, str) and info:
             banner = banner + "\n" + T("Szczegóły: {e}", e=info)
@@ -594,7 +601,7 @@ class App(Adw.Application):
         self.side_title.set_subtitle(subtitle)
         self.banner.set_title(banner or "")
         self.banner.set_revealed(bool(banner))
-        if state in ("disconnected", "no-device", "map-failed") and not self.reconnect_id:
+        if state in ("disconnected", "no-device", "map-failed", "map-denied") and not self.reconnect_id:
             self.reconnect_id = GLib.timeout_add_seconds(RECONNECT_SECONDS, self._auto_reconnect)
 
     def _poll(self):
@@ -666,6 +673,10 @@ class App(Adw.Application):
         print(f"[{op}] {msg}", file=sys.stderr)
         if op == "connect":
             self._ev_status("map-failed", msg)
+        elif op == "refresh":
+            if not getattr(self, "_refresh_err_shown", False):     # raz na sesję, nie co 45 s
+                self._refresh_err_shown = True
+                self.toast(T("Nie udało się odświeżyć listy wiadomości: {e}", e=msg))
         elif op == "contacts":
             self.contacts_loaded = False
             self.toast(T("Nie udało się pobrać kontaktów – włącz „Synchronizuj kontakty” na iPhonie"))

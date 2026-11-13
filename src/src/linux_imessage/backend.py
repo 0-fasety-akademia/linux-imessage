@@ -58,6 +58,12 @@ def message_from_props(props, folder, path=None):
     }
 
 
+def _pairs(result):
+    """ListMessages: starszy obexd zwraca listę par (ścieżka, właściwości), nowszy (BlueZ 5.8x) – słownik
+    {ścieżka: właściwości}. Pętla po słowniku dawała same klucze -> „too many values to unpack”."""
+    return result.items() if hasattr(result, "items") else result
+
+
 class Backend:
     def __init__(self, on_event, address=None):
         self.on_event = on_event
@@ -198,7 +204,7 @@ class Backend:
         for folder in ("inbox", "sent"):
             if folder not in folders:
                 continue
-            for mpath, props in self._mas.ListMessages(folder, {"MaxCount": dbus.UInt16(count)}):
+            for mpath, props in _pairs(self._mas.ListMessages(folder, {"MaxCount": dbus.UInt16(count)})):
                 m = message_from_props(props, folder, mpath)
                 m["path"] = str(mpath)
                 batch.append(m)
