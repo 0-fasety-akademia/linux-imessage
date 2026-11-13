@@ -11,6 +11,7 @@ DB_PATH = os.path.join(DATA_DIR, "messages.db")
 SETTINGS_PATH = os.path.join(CONF_DIR, "settings.json")
 
 DEFAULTS = {
+    "theme": "system",
     "persist_history": True,     # zapis historii na dysku (tylko lokalnie)
     "notifications": True,
     "notification_preview": True,  # treść w powiadomieniu

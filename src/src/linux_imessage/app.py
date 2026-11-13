@@ -17,7 +17,7 @@ from .store import Store, load_settings, save_settings  # noqa: E402
 
 APP_ID = "pl.jaro.LinuxIMessage"
 APP_NAME = "Linux iMessage"
-VERSION = "0.2.6"
+VERSION = "0.2.7"
 BUILD_DATE = "2026-11-12"
 CREATED_BY = "Created by: JGu"
 SUPPORTED_BY = "Supported by Claude"
@@ -98,6 +98,10 @@ class App(Adw.Application):
                 theme.add_search_path(os.path.join(src_icons, sub))
         self.src_icons = src_icons
         self.style = Adw.StyleManager.get_default()
+        # motyw wyglądu: Systemowy albo Aurora (jasny/ciemny według systemu)
+        from .aurora import AuroraTheme
+        self.look = AuroraTheme()
+        self.look.apply(self.settings.get("theme", "system"))
         self._actions()
         self._build_window()
         self.style.connect("notify::dark", lambda *_: self._apply_theme_icon())
@@ -128,6 +132,10 @@ class App(Adw.Application):
             a.connect("change-state", lambda act, v: self._set_setting(act, v, key))
             self.add_action(a)
 
+        th = Gio.SimpleAction.new_stateful("theme", GLib.VariantType.new("s"),
+                                           GLib.Variant("s", self.settings.get("theme", "system")))
+        th.connect("activate", self._on_theme)
+        self.add_action(th)
         add("quit", lambda *_: self.quit_app(), accel="<Control>q")
         add("refresh", lambda *_: self.backend.refresh(), accel="<Control>r")
         add("reconnect", lambda *_: self.reconnect())
@@ -253,6 +261,12 @@ class App(Adw.Application):
         win.add_breakpoint(bp)
         self.render_conversations()
 
+    def _on_theme(self, action, value):
+        action.set_state(value)
+        self.look.apply(value.get_string())
+        self.settings["theme"] = value.get_string()
+        save_settings(self.settings)
+
     def _menu_button(self):
         menu = Gio.Menu()
         s1 = Gio.Menu()
@@ -266,6 +280,10 @@ class App(Adw.Application):
         s2.append(T("Zapisuj historię na tym komputerze"), "app.persist-history")
         s2.append(T("Usuń lokalne dane…"), "app.wipe")
         menu.append_section(T("Prywatność"), s2)
+        look = Gio.Menu()
+        look.append(T("Systemowy"), "app.theme::system")
+        look.append("Aurora", "app.theme::aurora")
+        menu.append_submenu(T("Motyw"), look)
         s3 = Gio.Menu()
         s3.append(T("Jak chronione są dane?"), "app.privacy")
         s3.append(T("O programie {app}", app=APP_NAME), "app.about")

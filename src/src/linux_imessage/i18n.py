@@ -96,6 +96,8 @@ EN = {
     "Nie znaleziono sparowanego iPhone'a. Sparuj go w Ustawieniach → Bluetooth.":
         "No paired iPhone found. Pair it in Settings → Bluetooth.",
     "Brak dostępu do wiadomości": "No access to messages",
+    "Motyw": "Theme",
+    "Systemowy": "System",
     "iPhone odmówił dostępu": "The iPhone refused access",
     "iPhone jest połączony, ale nie zezwala na wiadomości. Odblokuj go i w Ustawieniach → Bluetooth → (i) przy komputerze włącz „Pokazuj powiadomienia” (jeśli już jest włączone – wyłącz i włącz ponownie). Aplikacja połączy się sama w ciągu 30 s.":
         "The iPhone is connected but does not allow messages. Unlock it and in Settings → Bluetooth → (i) next to this computer turn on “Show Notifications” (if it is already on, turn it off and on again). The app reconnects by itself within 30 s.",
