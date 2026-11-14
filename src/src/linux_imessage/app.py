@@ -17,7 +17,7 @@ from .store import Store, load_settings, save_settings  # noqa: E402
 
 APP_ID = "pl.jaro.LinuxIMessage"
 APP_NAME = "Linux iMessage"
-VERSION = "0.2.8"
+VERSION = "0.2.10"
 BUILD_DATE = "2026-11-14"
 CREATED_BY = "Created by: JGu"
 SUPPORTED_BY = "Supported by Claude"
