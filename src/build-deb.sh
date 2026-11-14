@@ -10,6 +10,9 @@ cp -r src/linux_imessage src/diagnose.py "$PKG/usr/lib/linux-imessage/"
 find "$PKG" -name __pycache__ -prune -exec rm -rf {} +
 cp -r data/icons "$PKG/usr/share/"
 cp data/pl.jaro.LinuxIMessage.desktop "$PKG/usr/share/applications/"
+# icon follows light/dark also while the app is closed (session autostart helper)
+install -D -m 0755 data/icon-watch.sh "$PKG/usr/lib/linux-imessage/icon-watch.sh"
+install -D -m 0644 data/autostart/pl.jaro.LinuxIMessage-icon.desktop "$PKG/etc/xdg/autostart/pl.jaro.LinuxIMessage-icon.desktop"
 cat > "$PKG/usr/bin/linux-imessage" <<'SH'
 #!/bin/sh
 exec /usr/bin/python3 -I -c 'import sys; sys.path.insert(0, "/usr/lib/linux-imessage"); from linux_imessage.__main__ import main; main()' "$@"

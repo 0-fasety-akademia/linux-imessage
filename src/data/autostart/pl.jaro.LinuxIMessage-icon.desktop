@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Linux iMessage icon theme helper
+Comment=Keeps the app icon in step with the light/dark system theme
+Exec=/usr/lib/linux-imessage/icon-watch.sh
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
